@@ -23,8 +23,10 @@ def filterByCharacter(name):
     filtered_cards = []
 
     for card in getAllImages():
-        # debe verificar si el name está contenido en el nombre de la card, antes de agregarlo al listado de filtered_cards.
-        filtered_cards.append(card)
+        # debe verificar si el nombre de la card contiene el nombre recibido por parámetro
+         if name.lower() in card.name.lower(): #verifico si el nombre de la card tiene el nombre que recibe
+            #en minusculas para que no haya problemas
+            filtered_cards.append(card)  
 
     return filtered_cards
 
@@ -34,7 +36,8 @@ def filterByType(type_filter):
 
     for card in getAllImages():
         # debe verificar si la casa de la card coincide con la recibida por parámetro. Si es así, se añade al listado de filtered_cards.
-        filtered_cards.append(card)
+        if type_filter.lower() in [t.lower() for t in card.types]:
+            filtered_cards.append(card)
 
     return filtered_cards
 

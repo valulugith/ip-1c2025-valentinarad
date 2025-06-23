@@ -21,8 +21,9 @@ def search(request):
 
     # si el usuario ingresó algo en el buscador, se deben filtrar las imágenes por dicho ingreso.
     if (name != ''):
-        images = []
-        favourite_list = []
+        images = services.filterByCharacter(name) #llama a la función que cree en services.py
+        # y devulve una lista de pokemons filtrada por el texto que se ingresó
+        favourite_list = services.getAllFavourites(request) if request.user.is_authenticated else [] #si el usuario está logueado, carga la lista de favoritos,sino devuelve una lista vacía
 
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
@@ -33,12 +34,14 @@ def filter_by_type(request):
     type = request.POST.get('type', '')
 
     if type != '':
-        images = [] # debe traer un listado filtrado de imágenes, segun si es o contiene ese tipo.
-        favourite_list = []
+        images = services.filterByType(type_filter) #llama a la función que cree en services.py 
+        #devulve lista de pokemons filtados por el tipo que se ingreso
+        #me aseguro que devuelva lista vacia ya que no va a haber ingreso de usuario.
+        favourite_list = services.getAllFavourites(request) if request.user.is_authenticated else [] 
 
         return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     else:
-        return redirect('home')
+        return redirect('home') 
 
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required

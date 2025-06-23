@@ -34,7 +34,7 @@ def filter_by_type(request):
     type = request.POST.get('type', '')
 
     if type != '':
-        images = services.filterByType(type_filter) #llama a la función que cree en services.py 
+        images = services.filterByType(type) #llama a la función que cree en services.py 
         #devulve lista de pokemons filtados por el tipo que se ingreso
         #me aseguro que devuelva lista vacia ya que no va a haber ingreso de usuario.
         favourite_list = services.getAllFavourites(request) if request.user.is_authenticated else [] 

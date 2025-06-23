@@ -10,8 +10,8 @@ def index_page(request):
 
 # esta función obtiene 2 listados: uno de las imágenes de la API y otro de favoritos, ambos en formato Card, y los dibuja en el template 'home.html'.
 def home(request):
-    images = []
-    favourite_list = []
+    images = services.getAllImages() #uso la funcion que ya complete, obtengo los pokemon
+    favourite_list = services.getAllFavourites(request) if request.user.is_authenticated else [] #si mas adelante hago favoritos, dejo la funcion ya hecha
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
